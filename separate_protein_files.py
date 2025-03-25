@@ -45,7 +45,7 @@ def split_protein_data(file_path, subfolder):
         output_path = os.path.join(subfolder, file_name)
 
         # Save the separated file
-        #group_df.to_csv(output_path, index=False) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Uncomment later!! Commented to check something!
+        group_df.to_csv(output_path, index=False) 
         separated_files.append(output_path)
 
         print(f"  Saved separated file: {output_path}")

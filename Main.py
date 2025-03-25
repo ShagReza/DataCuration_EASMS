@@ -37,7 +37,7 @@ def process_csv_files(data_path, masterlist_path, separated_files_dir, output_di
             
             # Step 2: Compute and Add Scores to all separated files together
             print("\nComputing and Adding Scores to All Separated Files...\n")
-            #compute_and_add_scores(separated_files)  # Process scores in a batch   #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Uncomment later!! Commented to check something!
+            compute_and_add_scores(separated_files)  # Process scores in a batch  
 
 
             # Step 3-8: Process each separated file after computing scores

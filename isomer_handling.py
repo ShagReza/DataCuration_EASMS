@@ -65,11 +65,11 @@ def handle_isomers(df, sep_file_name):
     df = df[~df["SMILES"].str.contains(";", na=False)]
     df = pd.concat([df, expanded_df], ignore_index=True)
 
-    # Save log file for ENRICHMENT > 10 cases
+    '''# Save log file for ENRICHMENT > 10 cases
     if log_rows:
         log_df = pd.DataFrame(log_rows)
         log_file_path = os.path.join(os.getcwd(), f"IsomersLog_{sep_file_name}.csv")
         log_df.to_csv(log_file_path, index=False)
-        print(f"Logged {len(log_df)} isomer entries with ENRICHMENT > 10 in {log_file_path}")
+        print(f"Logged {len(log_df)} isomer entries with ENRICHMENT > 10 in {log_file_path}")'''
 
     return df
