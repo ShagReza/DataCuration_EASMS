@@ -9,11 +9,11 @@ def generate_ml_labels(df):
     - LABEL = 2: if 5 ≤ EASMS_ENRICHMENT < 10 and PVALUE ≤ 0.05
     - LABEL = 1: if EASMS_ENRICHMENT ≥ 10 and PVALUE ≤ 0.05
     - LABEL = 0: if 0 ≤ EASMS_ENRICHMENT ≤ 1 or PVALUE < 0.05
-    - LABEL = -1: if 1 < EASMS_ENRICHMENT < 5 and PVALUE > 0.05
+    - LABEL = -1: if 1 < EASMS_ENRICHMENT < 5 and PVALUE ≤ 0.05
     - LABEL = -2: if EASMS_ENRICHMENT is missing
     """
 
-    required_columns = {"EASMS_ENRICHMENT", "PVALUE", "ISOMER"}
+    required_columns = {"EASMS_ENRICHMENT", "PVALUE", "ISOMERS"}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"Missing required columns: {required_columns - set(df.columns)}")
 
@@ -28,19 +28,19 @@ def generate_ml_labels(df):
     def assign_label(row):
         enrichment = row["EASMS_ENRICHMENT"]
         pvalue = row["PVALUE"]
-        isomer = str(row["ISOMER"]).strip()
+        isomer = str(row["ISOMERS"]).strip()
 
         if pd.isna(enrichment):
             return -2
-        elif enrichment >= 5 and pvalue <= 0.05 and isomer != "":
+        elif enrichment >= 5 and pvalue <= 0.05 and pd.notna(isomer) and isomer != "":
             return 3
         elif 5 <= enrichment < 10 and pvalue <= 0.05:
             return 2
         elif enrichment >= 10 and pvalue <= 0.05:
             return 1
-        elif 0 <= enrichment <= 1 or pvalue < 0.05:
+        elif 0 <= enrichment <= 1 or pvalue > 0.05:
             return 0
-        elif 1 < enrichment < 5 and pvalue > 0.05:
+        elif 1 < enrichment < 5 and pvalue <= 0.05:
             return -1
         else:
             return -2  # fallback

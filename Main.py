@@ -67,7 +67,7 @@ def process_csv_files(data_path, masterlist_path, separated_files_dir, output_di
                 print(f"  Saved intermediate file: {output_file1}")
         
                 # Step 7: Extract chemical fingerprints
-                df = extract_fingerprints(df)
+                #df = extract_fingerprints(df) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
                 # Step 8: Select final columns
                 df = select_final_columns(df, DesiredColumns)
