@@ -117,7 +117,7 @@ def main(data_path, masterlist_path, separated_files_dir, output_dir1, output_di
 if __name__ == "__main__":
     # Define paths (Modify as needed)
     path=r"D:\0000-UHN\03-DataAndCodes\Data\ASMS\EASMS-20March"
-    data_path = os.path.join(path, "RawData0")
+    data_path = os.path.join(path, "RawData")
     masterlist_path = os.path.join(path, "MasterLists")  
     MasterList_Information = os.path.join(masterlist_path, "MasterList_Information.xlsx")   
 
@@ -151,7 +151,7 @@ if __name__ == "__main__":
      'ENRICHMENT',
      'SELECTIVE_ENRICHMENT',
      'PVALUE',
-     'BINARY_LABEL',
+     'SGC_BINARY_LABEL',
      'SPR',
      'KD',
      'ISOMERS',
@@ -184,7 +184,7 @@ if __name__ == "__main__":
      'POS_INT_REP3',
      'TARGET_VALUE',
      'PVALUE',
-     'BINARY_LABEL',
+     'SGC_BINARY_LABEL',
      'ISOMERS',
      'MassSpec_Detected',
      'EASMS_ENRICHMENT',
