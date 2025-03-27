@@ -71,7 +71,7 @@ def process_csv_files(data_path, masterlist_path, separated_files_dir, output_di
                 print(f"  Saved intermediate file: {output_file1_csv}")
         
                 # Step 7: Extract chemical fingerprints
-                df = extract_fingerprints(df) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                df = extract_fingerprints(df) 
         
         
                 # Step 8: RenameColumns
@@ -110,6 +110,7 @@ def main(data_path, masterlist_path, separated_files_dir, output_dir1, output_di
     os.makedirs(separated_files_dir, exist_ok=True)
     os.makedirs(output_dir1, exist_ok=True)
     os.makedirs(output_dir2, exist_ok=True)
+    os.makedirs(output_dir3, exist_ok=True)
 
     process_csv_files(data_path, masterlist_path, separated_files_dir, output_dir1, output_dir2, output_dir3, MasterList_Information, DesiredColumns)
 
