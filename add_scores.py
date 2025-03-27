@@ -100,7 +100,7 @@ def compute_and_add_scores(file_paths):
                 return p_value
 
             except Exception as e:
-                print(f"⚠️ Error calculating p-value for {row.get('COMPOUND_ID', 'UNKNOWN')}: {e}")
+                print(f" Error calculating p-value for {row.get('COMPOUND_ID', 'UNKNOWN')}: {e}")
                 return None
 
         df["PVALUE"] = df.apply(calculate_p_value, axis=1)

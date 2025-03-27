@@ -69,12 +69,13 @@ def process_csv_files(data_path, masterlist_path, separated_files_dir, output_di
                 # Step 7: Extract chemical fingerprints
                 #df = extract_fingerprints(df) #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
-                # Step 8: Select final columns
-                df = select_final_columns(df, DesiredColumns)
-                
-                # RenameColumns
-                df = df.rename(columns={"BINARY_LABEL": "SGC_BINARY_LABEL"})
         
+                # Step 8: RenameColumns
+                df = df.rename(columns={"BINARY_LABEL": "SGC_BINARY_LABEL"})
+                
+                # Step 9: Select final columns
+                df = select_final_columns(df, DesiredColumns)                
+       
                 # Save as CSV
                 output_file2_csv = os.path.join(output_dir2, f"MLReadyPlusFPs_{sep_file_name}.csv")
                 df.to_csv(output_file2_csv, index=False)
@@ -105,6 +106,51 @@ if __name__ == "__main__":
     output_dir1 = os.path.join(path, "MLReady") 
     output_dir2 = os.path.join(path, "MLReady_Plus_FPs")
 
+   ''' DesiredColumns = ['ASMS_BATCH_NUM',
+     'COMPOUND_ID',
+     'COMPOUND_FORMULA',
+     'SMILES',
+     'POOL_NAME',
+     'POOL_ID',
+     'POOL_SIZE',
+     'PROTEIN_NUMBER',
+     'TARGET_ID',
+     'PROTEIN_ID',
+     'PROTEIN_SEQ',
+     'PROTEIN_TAG',
+     'INCUBATION_VOLUME',
+     'PROTEIN_CONC',
+     'COMPOUND_CONC',
+     'MS_REPRODUCABILITY',
+     'POS_INT_REP1',
+     'POS_INT_REP2',
+     'POS_INT_REP3',
+     'TARGET_VALUE',
+     'SELECTIVE_VALUE',
+     'NTC_VALUE',
+     'ENRICHMENT',
+     'SELECTIVE_ENRICHMENT',
+     'PVALUE',
+     'BINARY_LABEL',
+     'SPR',
+     'KD',
+     'ISOMERS',
+     'MassSpec_Detected',
+     'EASMS_ENRICHMENT',
+     'MEAN_NONTARGET_VALUES',
+     'LABEL',
+     'MW',
+     'ALOGP',
+     'ECFP4',
+     'ECFP6',
+     'FCFP4',
+     'FCFP6',
+     'MACCS',
+     'RDK',
+     'AVALON',
+     'TOPTOR',
+     'ATOMPAIR']'''
+    
     DesiredColumns = ['ASMS_BATCH_NUM',
      'COMPOUND_ID',
      'COMPOUND_FORMULA',
@@ -135,6 +181,8 @@ if __name__ == "__main__":
      'KD',
      'ISOMERS',
      'MassSpec_Detected',
+     'EASMS_ENRICHMENT',
+     'MEAN_NONTARGET_VALUES',
      'LABEL',
      'MW',
      'ALOGP',

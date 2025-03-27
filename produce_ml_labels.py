@@ -32,7 +32,7 @@ def generate_ml_labels(df):
 
         if pd.isna(enrichment):
             return -2
-        elif enrichment >= 5 and pvalue <= 0.05 and pd.notna(isomer) and isomer != "":
+        elif enrichment >= 5 and pvalue <= 0.05 and isomer !='nan' and isomer != "":
             return 3
         elif 5 <= enrichment < 10 and pvalue <= 0.05:
             return 2
