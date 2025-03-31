@@ -61,6 +61,7 @@ def add_negative_samples_from_masterlist(df, file_name, masterlist_path, MasterL
     new_entries["ENRICHMENT"] = np.nan
     new_entries["PVALUE"] = np.nan
     new_entries["MassSpec_Detected"] = "N"
+    new_entries["TARGET_ID"] = df["TARGET_ID"][0]
     df["MassSpec_Detected"] = "Y"
     
     
@@ -79,7 +80,7 @@ def add_negative_samples_from_masterlist(df, file_name, masterlist_path, MasterL
             new_entries[df_col] = new_entries[master_col]
 
     # Select only relevant columns to append
-    columns_to_add = ["SMILES", "BINARY_LABEL","ENRICHMENT","PVALUE","MassSpec_Detected"] + list(column_mapping.values())
+    columns_to_add = ["SMILES", "BINARY_LABEL","ENRICHMENT","PVALUE","MassSpec_Detected", "TARGET_ID"] + list(column_mapping.values())
     df = pd.concat([df, new_entries[columns_to_add]], ignore_index=True)
 
     print(f"Added {len(new_entries)} negative samples to {file_name} from {masterlist_name}, including columns: {list(column_mapping.values())}")

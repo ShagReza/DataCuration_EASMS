@@ -3,7 +3,7 @@ import pandas as pd
 import warnings
 
 # Suppress FutureWarnings for pandas operations
-warnings.simplefilter(action='ignore', category=FutureWarning)
+# warnings.simplefilter(action='ignore', category=FutureWarning)
 
 def filter_anomalous_data(df, sep_file_name):
     """
@@ -78,17 +78,20 @@ def filter_anomalous_data(df, sep_file_name):
     for smiles in conflicting_smiles:
         subset = df_cleaned[df_cleaned["SMILES"] == smiles]  # Get all rows for this SMILES
 
-        if subset["ENRICHMENT"].max() <= 1:  
+        if subset["EASMS_ENRICHMENT"].max() <= 1:  
             # All values are < 1 → Keep the row with the lowest ENRICHMENT
-            best_row = subset.loc[[subset["ENRICHMENT"].idxmin()]]
+            best_row = subset.loc[[subset["EASMS_ENRICHMENT"].idxmin()]]
             if not best_row.empty:
                 rows_to_keep_df = pd.concat([rows_to_keep_df, best_row], ignore_index=True)
-        elif subset["ENRICHMENT"].min() > 1:  
+        elif subset["EASMS_ENRICHMENT"].min() > 1:  
             # All values are > 5 → Keep the row with the highest ENRICHMENT
-            best_row = subset.loc[[subset["ENRICHMENT"].idxmax()]]
+            best_row = subset.loc[[subset["EASMS_ENRICHMENT"].idxmax()]]
             if not best_row.empty:
                 rows_to_keep_df = pd.concat([rows_to_keep_df, best_row], ignore_index=True)
 
+    # Add HAD_DUPLICATE_INTENSITY column
+    df_cleaned.loc[~df_cleaned["SMILES"].isin(conflicting_smiles), "HAD_DUPLICATE_INTENSITY"] = "N"
+    rows_to_keep_df["HAD_DUPLICATE_INTENSITY"] = "Y"
 
     # Step 3: Merge back with non-conflicting SMILES
     final_df = pd.concat([df_cleaned[~df_cleaned["SMILES"].isin(conflicting_smiles)], rows_to_keep_df], ignore_index=True)

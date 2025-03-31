@@ -74,8 +74,13 @@ def process_csv_files(data_path, masterlist_path, separated_files_dir, output_di
                 df = extract_fingerprints(df) 
         
         
-                # Step 8: RenameColumns
-                df = df.rename(columns={"BINARY_LABEL": "SGC_BINARY_LABEL"})
+                # Step 8: 
+                # RenameColumns
+                df = df.rename(columns={"TARGET_VALUE": "TARGET_INTENSITY_VALUE"})
+                df = df.rename(columns={"MEAN_NONTARGET_VALUES": "NONTARGET_INTENSITY_VALUE"})
+                
+                # Creates a new column LABEL with 1 if BINARY_LABEL is "Y", and 0 if it's "N":
+                df["LABEL"] = (df["BINARY_LABEL"] == "Y").astype(int)
                 
                 # Step 9: Select final columns
                 df = select_final_columns(df, DesiredColumns)                
@@ -145,20 +150,22 @@ if __name__ == "__main__":
      'POS_INT_REP1',
      'POS_INT_REP2',
      'POS_INT_REP3',
-     'TARGET_VALUE',
+     'TARGET_INTENSITY_VALUE',
      'SELECTIVE_VALUE',
      'NTC_VALUE',
      'ENRICHMENT',
      'SELECTIVE_ENRICHMENT',
      'PVALUE',
-     'SGC_BINARY_LABEL',
+     'BINARY_LABEL',
+     'HAD_DUPLICATE_INTENSITY',
      'SPR',
      'KD',
      'ISOMERS',
      'MassSpec_Detected',
      'EASMS_ENRICHMENT',
-     'MEAN_NONTARGET_VALUES',
+     'NONTARGET_INTENSITY_VALUE',
      'LABEL',
+     'AIRCHECK_LABEL',
      'MW',
      'ALOGP',
      'ECFP4',
@@ -171,24 +178,14 @@ if __name__ == "__main__":
      'TOPTOR',
      'ATOMPAIR']
     
-    DesiredColumns2 = ['ASMS_BATCH_NUM',
+    DesiredColumns2 = [
      'COMPOUND_ID',
-     'COMPOUND_FORMULA',
      'SMILES',
-     'PROTEIN_NUMBER',
      'TARGET_ID',
-     'PROTEIN_ID',
-     'PROTEIN_SEQ',
-     'POS_INT_REP1',
-     'POS_INT_REP2',
-     'POS_INT_REP3',
-     'TARGET_VALUE',
-     'PVALUE',
-     'SGC_BINARY_LABEL',
-     'ISOMERS',
-     'MassSpec_Detected',
+     'TARGET_INTENSITY_VALUE',
+     'NONTARGET_INTENSITY_VALUE',
      'EASMS_ENRICHMENT',
-     'MEAN_NONTARGET_VALUES',
+     'PVALUE',
      'LABEL',
      'MW',
      'ALOGP',

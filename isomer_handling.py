@@ -51,10 +51,10 @@ def handle_isomers(df, sep_file_name):
             new_row["SMILES"] = smile
             new_row["ISOMERS"] = ";".join([x for j, x in enumerate(compound_ids) if j != i])  # Store other isomers
 
-            # Add to log if ENRICHMENT > 5
-            if new_row["ENRICHMENT"] > 5 and new_row["PVALUE"] < 0.05:
+            '''# Add to log if ENRICHMENT > 5
+            if new_row["EASMS_ENRICHMENT"] > 5 and new_row["PVALUE"] < 0.05:
                 #log_rows.append(new_row[["COMPOUND_ID", "COMPOUND_FORMULA", "SMILES", "ENRICHMENT", "ISOMERS"]])
-                log_rows.append(new_row)
+                log_rows.append(new_row)'''
 
             expanded_rows.append(new_row)
 
