@@ -64,6 +64,12 @@ def handle_isomers(df, sep_file_name):
     # Remove original isomer-containing rows and append the new ones
     df = df[~df["SMILES"].str.contains(";", na=False)]
     df = pd.concat([df, expanded_df], ignore_index=True)
+    
+    # Ensure ISOMERS column exists and is filled
+    if "ISOMERS" not in df.columns:
+        df["ISOMERS"] = ""
+    else:
+        df["ISOMERS"] = df["ISOMERS"].fillna("")
 
     '''# Save log file for ENRICHMENT > 10 cases
     if log_rows:

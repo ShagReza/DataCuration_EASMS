@@ -11,7 +11,7 @@ def generate_ml_labels(df):
     - AIRCHECK_LABEL = 0: if 0 ≤ EASMS_ENRICHMENT ≤ 1 or PVALUE > 0.05
     - AIRCHECK_LABEL = -1: if 1 < EASMS_ENRICHMENT < 5 and PVALUE ≤ 0.05
     - AIRCHECK_LABEL = -2: if EASMS_ENRICHMENT is missing
-    - AIRCHECK_LABEL = "NA": if HAD_DUPLICATE_INTENSITY == "Y" and ENRICHMENT > 5
+    - AIRCHECK_LABEL = 4: if HAD_DUPLICATE_INTENSITY == "Y" and ENRICHMENT > 5
     """
 
     required_columns = {"EASMS_ENRICHMENT", "PVALUE", "ISOMERS"}
@@ -52,6 +52,6 @@ def generate_ml_labels(df):
     # Apply the NA rule for high enrichment and duplicate intensity
     if "HAD_DUPLICATE_INTENSITY" in df.columns:
         mask = (df["HAD_DUPLICATE_INTENSITY"] == "Y") & (df["EASMS_ENRICHMENT"] > 5)
-        df.loc[mask, "AIRCHECK_LABEL"] = "NA"
+        df.loc[mask, "AIRCHECK_LABEL"] = 4
 
     return df
